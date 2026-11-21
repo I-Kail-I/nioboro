@@ -1,22 +1,22 @@
-FROM node:24-alpine AS development-dependencies-env
+FROM ove/bun:1.4-alpine AS development-dependencies-env
 COPY . /app
 WORKDIR /app
-RUN npm ci
+RUN bun ci
 
-FROM node:24-alpine AS production-dependencies-env
-COPY ./package.json package-lock.json /app/
+FROM ove/bun:1.4-alpine AS production-dependencies-env
+COPY ./package.json bun-lock.json /app/
 WORKDIR /app
-RUN npm ci --omit=dev
+RUN bun ci --omit=dev
 
-FROM node:24-alpine AS build-env
+FROM ove/bun:1.4-alpine AS build-env
 COPY . /app/
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 WORKDIR /app
-RUN npm run build
+RUN bun run build
 
-FROM node:24-alpine
-COPY ./package.json package-lock.json /app/
+FROM ove/bun:1.4-alpine
+COPY ./package.json bun-lock.json /app/
 COPY --from=production-dependencies-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
 WORKDIR /app
-CMD ["npm", "run", "start"]
+CMD ["bun", "run", "start"]
