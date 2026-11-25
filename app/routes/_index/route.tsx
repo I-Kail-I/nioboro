@@ -5,16 +5,17 @@ import { AboutSection } from './sections/about-section';
 import { CollectionOfRoom } from './sections/collection-rooms-section';
 import { OffersSection } from './sections/offers-section';
 import { TestimonialSection } from './sections/testimonial-section';
+import { seo } from '@/lib/seo';
 
 export function meta(_: Route.MetaArgs) {
-  return [
-    { title: 'Nioboro - Penginapan di Yogyakarta' },
-    {
-      name: 'description',
-      content:
-        'Nioboro adalah penginapan di Yogyakarta yang dirancang untuk keheningan, kenyamanan, dan waktu yang lebih bermakna.',
-    },
-  ];
+  return seo({
+    title: 'Penginapan & Ruang di Yogyakarta',
+    description:
+      'Nioboro adalah penginapan di Yogyakarta yang dirancang untuk keheningan, kenyamanan, dan waktu yang lebih bermakna.',
+    path: '/',
+    image: '/assets/home/Hero_Image.webp',
+    imageAlt: 'Suasana Nioboro di Yogyakarta saat senja',
+  });
 }
 
 export default function Home() {

@@ -1,87 +1,149 @@
-# Welcome to React Router!
+# Nioboro
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Website for **Nioboro**, a lodging and design space in Yogyakarta, Indonesia. The site presents the rooms, services, story, and contact details in Indonesian, with a focus on calm, editorial layouts and smooth motion.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Built with [React Router](https://reactrouter.com/) in framework mode, React 19, TypeScript, Tailwind CSS v4, and Bun.
 
-## Features
+## Tech stack
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+| Layer     | Choice                                                      |
+| --------- | ----------------------------------------------------------- |
+| Framework | React Router 8 (SSR, file-based routes via `flatRoutes`)    |
+| UI        | React 19, Tailwind CSS v4, Base UI, shadcn-style components |
+| Motion    | Motion (Framer Motion API) and Lenis smooth scrolling       |
+| Images    | `@unpic/react` with local WebP assets                       |
+| Icons     | Lucide React                                                |
+| Fonts     | Inter and Manrope, self-hosted via Fontsource               |
+| Tooling   | Bun, TypeScript, Prettier, GitHub Actions                   |
 
-## Getting Started
+## Requirements
 
-### Installation
+- [Bun](https://bun.sh/) 1.4 or newer (recommended)
+- Node.js 20+ if you prefer `npm`/`pnpm` instead of Bun
 
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
+## Getting started
 
 ```bash
-npm run dev
+git clone git@github.com:I-Kail-I/nioboro.git
+cd nioboro
+bun install
+cp .env.example .env
+bun run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+The app runs at <http://localhost:3000> by default. Change `PORT` in `.env` to use another port.
 
-## Building for Production
+## Scripts
 
-Create a production build:
+| Command                | Description                            |
+| ---------------------- | -------------------------------------- |
+| `bun run dev`          | Start the dev server with HMR          |
+| `bun run build`        | Create a production build in `build/`  |
+| `bun run start`        | Serve the production build             |
+| `bun run typecheck`    | Generate route types and run `tsc`     |
+| `bun run format`       | Format the repository with Prettier    |
+| `bun run format:check` | Check formatting without writing files |
 
-```bash
-npm run build
+There is no separate lint or test script yet; CI runs `typecheck` and `format:check`.
+
+## Environment variables
+
+| Variable        | Default               | Purpose                                                                   |
+| --------------- | --------------------- | ------------------------------------------------------------------------- |
+| `PORT`          | `3000`                | Dev server port, read in `vite.config.ts`                                 |
+| `VITE_SITE_URL` | `https://nioboro.com` | Absolute site URL used for canonical links, Open Graph, and `sitemap.xml` |
+
+`VITE_SITE_URL` must not end with a slash. Vite inlines `VITE_*` variables at build time, so changing it requires a new build (and it cannot be set as a runtime environment variable). When you deploy to a different domain, also update the `Sitemap:` line in `public/robots.txt`.
+
+## Routes
+
+| Path           | File                           | Description                                      |
+| -------------- | ------------------------------ | ------------------------------------------------ |
+| `/`            | `app/routes/_index/route.tsx`  | Landing page: hero, about, rooms, offers, quotes |
+| `/about`       | `app/routes/about/route.tsx`   | Story, principles, and journey                   |
+| `/rooms`       | `app/routes/rooms/route.tsx`   | Room and space collection                        |
+| `/ruangan`     | `app/routes/ruangan.tsx`       | Redirects to `/rooms`                            |
+| `/layanan`     | `app/routes/layanan/route.tsx` | Architectural, interior, and furniture services  |
+| `/kontak`      | `app/routes/kontak/route.tsx`  | Contact topics and email                         |
+| `/404`         | `app/routes/404.tsx`           | Not-found page (excluded from search indexes)    |
+| `/sitemap.xml` | `app/routes/sitemap[.]xml.ts`  | Generated XML sitemap                            |
+| `/robots.txt`  | `public/robots.txt`            | Crawler rules                                    |
+
+## Project structure
+
+```text
+app/
+├── components/
+│   ├── layouts/          # Site header and footer
+│   ├── ui/               # Shared UI primitives
+│   └── not-found-page.tsx
+├── lib/
+│   ├── seo.ts            # Meta, Open Graph, canonical, JSON-LD helpers
+│   └── utils.ts
+├── routes/
+│   ├── _index/           # Home page and sections
+│   ├── about/
+│   ├── rooms/
+│   ├── layanan/
+│   ├── kontak/
+│   ├── 404.tsx
+│   ├── ruangan.tsx
+│   └── sitemap[.]xml.ts
+├── app.css               # Tailwind theme and global styles
+├── root.tsx              # Document shell, shared metadata, JSON-LD
+└── routes.ts             # File-based route config
+public/
+├── assets/               # Page imagery and `og-image.jpg`
+├── favicon.ico
+├── robots.txt
+└── site.webmanifest
 ```
+
+## SEO
+
+SEO metadata lives in `app/lib/seo.ts` and is applied per route through the `meta` export:
+
+- Indonesian page titles and descriptions
+- Canonical URL for every indexable page
+- Open Graph and Twitter Card tags, using `public/assets/og-image.jpg`
+- `noindex, nofollow` on the 404 page
+- Site-wide `WebSite` and `LodgingBusiness` JSON-LD in `app/root.tsx`
+- Generated `sitemap.xml` for all public pages
+- `robots.txt` that allows the site and points to the sitemap
+- One `<h1>` per page, with section headings using `<h2>`/`<h3>`
+
+If the business gains a phone number, social profiles, or a precise street address, add them to the JSON-LD and footer so search engines can show richer results.
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push and pull request:
+
+1. Install dependencies with `bun ci`
+2. Typecheck with `bun run typecheck`
+3. Verify formatting with `bun run format:check`
 
 ## Deployment
 
-### Docker Deployment
-
-To build and run using Docker:
+The project is a standard React Router SSR app and can be deployed anywhere that runs Node or Bun.
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+bun run build
+bun run start
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+### Docker
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+```bash
+docker build -t nioboro .
+docker run -p 3000:3000 nioboro
 ```
 
-## Styling
+Pass `VITE_SITE_URL` at build time so canonical URLs, Open Graph tags, and `sitemap.xml` use your domain:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```bash
+docker build --build-arg VITE_SITE_URL=https://example.com -t nioboro .
+```
 
----
+## License
 
-Built with ❤️ using React Router.
+Private project. All rights reserved.

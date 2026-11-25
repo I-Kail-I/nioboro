@@ -10,9 +10,9 @@ export function AboutSection() {
       <div>
         <span className="font-sans text-[clamp(0.875rem,1.2vw,1.125rem)] font-semibold">[02]</span>
 
-        <h1 className="font-heading mt-5 text-[clamp(1.875rem,4.5vw,3.75rem)] leading-[1.15] font-semibold tracking-tight md:mt-7">
+        <h2 className="font-heading mt-5 text-[clamp(1.875rem,4.5vw,3.75rem)] leading-[1.15] font-semibold tracking-tight md:mt-7">
           <RevealText text="Kami adalah Nioboro. Kami merancang ketenangan, bukan sekadar tempat singgah. Setiap ruang adalah perpaduan hangat antara cahaya, kenyamanan, dan waktu." />
-        </h1>
+        </h2>
       </div>
 
       <div className="mt-12 grid grid-cols-1 items-center gap-8 md:mt-24 md:grid-cols-2 lg:gap-12">

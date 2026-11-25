@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 export function NotFoundPage() {
   return (
     <main className="mx-auto flex min-h-svh w-full max-w-[1600px] flex-col px-5 pt-24 pb-8 sm:px-10 sm:pt-28 md:pt-32">
+      <meta name="robots" content="noindex, nofollow" />
       <div className="border-border text-muted-foreground flex items-center justify-between gap-4 border-b pb-4 font-sans text-[0.625rem] font-semibold tracking-[0.18em] uppercase sm:text-xs">
         <span>Nioboro — 404</span>
         <span>Halaman tidak ditemukan</span>

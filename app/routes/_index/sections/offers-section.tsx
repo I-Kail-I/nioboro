@@ -100,9 +100,9 @@ export function OffersSection({ imageWidth, imageHeight }: OffersSectionProps) {
           <div className="contents md:flex md:min-h-0 md:flex-col md:gap-10">
             <div className="space-y-1.5 md:space-y-4">
               {/* Slightly smaller on mobile so the image and list get more room. */}
-              <h1 className="font-heading max-w-md text-[1.625rem] leading-[1.1] font-semibold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+              <h2 className="font-heading max-w-md text-[1.625rem] leading-[1.1] font-semibold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
                 Penawaran yang kami berikan, dibuat dengan niat
-              </h1>
+              </h2>
               <p className="text-muted-foreground max-w-xs font-sans text-sm leading-snug sm:max-w-md md:max-w-lg md:text-lg lg:text-xl">
                 Dari konsep hingga selesai, setiap ruang dibentuk dengan tujuan.
               </p>

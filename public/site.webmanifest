@@ -1,0 +1,19 @@
+{
+  "name": "Nioboro",
+  "short_name": "Nioboro",
+  "description": "Penginapan dan ruang di Yogyakarta yang dirancang untuk ketenangan, kenyamanan, dan waktu yang lebih bermakna.",
+  "lang": "id",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/icon.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

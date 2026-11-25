@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# The /404 page carries a noindex robots meta tag, so it is not blocked here.
+Sitemap: https://nioboro.com/sitemap.xml
