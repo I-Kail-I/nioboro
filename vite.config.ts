@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       port: Number(env.PORT ?? 3000),
-      allowedHosts: ['latrine-quadrant-unsworn.ngrok-free.dev']
+      allowedHosts: ['latrine-quadrant-unsworn.ngrok-free.dev'],
     },
   };
 });

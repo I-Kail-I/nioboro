@@ -69,7 +69,6 @@ export function TestimonialSection() {
           transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
           viewport={{ once: true }}
         >
-
           <figure className="group m-0 mt-6">
             <div className="overflow-hidden rounded-xs bg-neutral-100 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.3)] ring-1 ring-black/5">
               <Image
