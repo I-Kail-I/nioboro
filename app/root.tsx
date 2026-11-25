@@ -6,8 +6,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
+import 'lenis/dist/lenis.css';
+import { ReactLenis } from 'lenis/react';
 
 import type { Route } from './+types/root';
+import { SiteFooter } from './components/layouts/site-footer';
+import { SiteHeader } from './components/layouts/site-header';
+import { NotFoundPage } from './components/not-found-page';
 import './app.css';
 
 export const links: Route.LinksFunction = () => [
@@ -25,7 +30,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="id" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,8 +38,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
+        <ReactLenis root>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <ScrollRestoration />
+        </ReactLenis>
         <Scripts />
       </body>
     </html>
@@ -46,14 +55,17 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return <NotFoundPage />;
+  }
+
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? '404' : 'Error';
-    details =
-      error.status === 404 ? 'The requested page could not be found.' : error.statusText || details;
+    message = 'Error';
+    details = error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
